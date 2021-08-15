@@ -110,11 +110,17 @@ namespace AirlineManagementAPI.Controllers
             _context.Passenger.Remove(passenger);
             if (seatno.StartsWith("E"))
             {
-                _context.TicketDetails.Where(tick => tick.TicketNo == id).Select(e => e.SeatsBookedE - 1);
+                var ticket=_context.TicketDetails.Where(tick => tick.TicketNo == id).First();
+                ticket.SeatsBookedE = ticket.SeatsBookedE - 1;
+                _context.TicketDetails.Update(ticket);
+                _context.SaveChanges();
             }
             else if(seatno.StartsWith("B"))
             {
-                _context.TicketDetails.Where(tick => tick.TicketNo == id).Select(e => e.SeatsBookedB - 1);
+                var ticket = _context.TicketDetails.Where(tick => tick.TicketNo == id).First();
+                ticket.SeatsBookedB = ticket.SeatsBookedB - 1;
+                _context.TicketDetails.Update(ticket);
+                _context.SaveChanges();
             }
             await _context.SaveChangesAsync();
 
