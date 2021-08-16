@@ -12,9 +12,6 @@ namespace AirlineManagementAPI.Models
     {
         public AirlineManagementContext()
         {
-            //this.Configuration.LazyLoadingEnabled = false;
-            //this.ChangeTracker.LazyLoadingEnabled = false;
-            //this.Configuration.ProxyCreationEnabled = false;
         }
 
         public AirlineManagementContext(DbContextOptions<AirlineManagementContext> options)
@@ -23,8 +20,8 @@ namespace AirlineManagementAPI.Models
         }
 
         public virtual DbSet<Admin> Admin { get; set; }
-        public virtual DbSet<Card> Card { get; set; }
         public virtual DbSet<Flight> Flight { get; set; }
+        public virtual DbSet<FlightDeptDate> FlightDeptDate { get; set; }
         public virtual DbSet<Passenger> Passenger { get; set; }
         public virtual DbSet<TicketDetails> TicketDetails { get; set; }
         public virtual DbSet<Users> Users { get; set; }
@@ -54,47 +51,10 @@ namespace AirlineManagementAPI.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Card>(entity =>
-            {
-                entity.HasKey(e => e.UserId)
-                    .HasName("PK__Card__1788CCACE2052F99");
-
-                entity.HasIndex(e => e.CardNo)
-                    .HasName("UQ__Card__BDFCFDC49A1C6AFC")
-                    .IsUnique();
-
-                entity.Property(e => e.UserId)
-                    .HasColumnName("UserID")
-                    .HasMaxLength(15)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.CardNo)
-                    .IsRequired()
-                    .HasColumnName("card_No")
-                    .HasMaxLength(16)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.CardType)
-                    .IsRequired()
-                    .HasColumnName("card_type")
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ExpirationDate)
-                    .HasColumnName("expiration_date")
-                    .HasColumnType("datetime");
-
-                entity.HasOne(d => d.User)
-                    .WithOne(p => p.Card)
-                    .HasForeignKey<Card>(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Card__UserID__33D4B598");
-            });
-
             modelBuilder.Entity<Flight>(entity =>
             {
                 entity.HasKey(e => e.FlightNo)
-                    .HasName("PK__Flight__8A9E3D454CD851D8");
+                    .HasName("PK__Flight__8A9E3D452BAE2981");
 
                 entity.Property(e => e.FlightNo)
                     .HasMaxLength(15)
@@ -138,10 +98,28 @@ namespace AirlineManagementAPI.Models
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<FlightDeptDate>(entity =>
+            {
+                entity.HasKey(e => new { e.FlightNo, e.DeptDate })
+                    .HasName("PK__FlightDe__63C68366817DA4FA");
+
+                entity.Property(e => e.FlightNo)
+                    .HasMaxLength(15)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DeptDate)
+                    .HasMaxLength(12)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.SeatsB).HasColumnName("seatsB");
+
+                entity.Property(e => e.SeatsE).HasColumnName("seatsE");
+            });
+
             modelBuilder.Entity<Passenger>(entity =>
             {
                 entity.HasKey(e => new { e.TicketNo, e.Seatno })
-                    .HasName("PK__Passenge__EAE9D6914A7CFCDF");
+                    .HasName("PK__Passenge__EAE9D6911F2A38B3");
 
                 entity.Property(e => e.TicketNo)
                     .HasMaxLength(20)
@@ -175,13 +153,13 @@ namespace AirlineManagementAPI.Models
                     .WithMany(p => p.Passenger)
                     .HasForeignKey(d => d.TicketNo)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Passenger__Ticke__571DF1D5");
+                    .HasConstraintName("FK__Passenger__Ticke__300424B4");
             });
 
             modelBuilder.Entity<TicketDetails>(entity =>
             {
                 entity.HasKey(e => e.TicketNo)
-                    .HasName("PK__TicketDe__712CCE645A9BC886");
+                    .HasName("PK__TicketDe__712CCE64E1677944");
 
                 entity.Property(e => e.TicketNo)
                     .HasMaxLength(20)
@@ -218,6 +196,7 @@ namespace AirlineManagementAPI.Models
                 entity.HasOne(d => d.FlightNoNavigation)
                     .WithMany(p => p.TicketDetails)
                     .HasForeignKey(d => d.FlightNo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__TicketDet__Fligh__2D27B809");
 
                 entity.HasOne(d => d.User)
@@ -230,14 +209,14 @@ namespace AirlineManagementAPI.Models
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.UserId)
-                    .HasName("PK__Users__CB9A1CDFFE139339");
+                    .HasName("PK__Users__CB9A1CDFADC3C4C8");
 
                 entity.HasIndex(e => e.Email)
-                    .HasName("UQ__Users__A9D105349823B458")
+                    .HasName("UQ__Users__A9D10534D920FE4B")
                     .IsUnique();
 
                 entity.HasIndex(e => e.PhoneNo)
-                    .HasName("UQ__Users__F3EE33E2C77F1A12")
+                    .HasName("UQ__Users__F3EE33E2E3E9F994")
                     .IsUnique();
 
                 entity.Property(e => e.UserId)

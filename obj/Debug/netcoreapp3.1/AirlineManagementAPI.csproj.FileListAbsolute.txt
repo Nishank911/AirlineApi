@@ -131,3 +131,7 @@ G:\LTI TRAINING\ProjectGladiator\AirlineManagementAPI\bin\Debug\netcoreapp3.1\ru
 G:\LTI TRAINING\ProjectGladiator\AirlineManagementAPI\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 G:\LTI TRAINING\ProjectGladiator\AirlineManagementAPI\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 G:\LTI TRAINING\ProjectGladiator\AirlineManagementAPI\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+G:\LTI TRAINING\ProjectGladiator\AirlineManagementAPI\bin\Debug\netcoreapp3.1\MailKit.dll
+G:\LTI TRAINING\ProjectGladiator\AirlineManagementAPI\bin\Debug\netcoreapp3.1\MimeKit.dll
+G:\LTI TRAINING\ProjectGladiator\AirlineManagementAPI\bin\Debug\netcoreapp3.1\NETCore.MailKit.dll
+G:\LTI TRAINING\ProjectGladiator\AirlineManagementAPI\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AirlineManagementAPI.Models;
+using System.Net.Mail;
 
 namespace AirlineManagementAPI.Controllers
 {
@@ -72,6 +73,28 @@ namespace AirlineManagementAPI.Controllers
 
             return NoContent();
         }
+        /////////Email////////
+        [HttpPost("{To}/{Body}")]
+        public async Task<IActionResult> SendMail(string To, string Body)
+        {
+            string from = "viserion1921@gmail.com";
+            MailMessage mail = new MailMessage(from, To);
+            mail.Subject = "Password Reset OTP";
+            mail.Body = Body;
+            //Attachment attachment = new Attachment(@"");
+            //mail.Attachments.Add(attachment);
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.Credentials = new System.Net.NetworkCredential()
+            {
+                UserName = "viserion1921@gmail.com",
+                Password = "Nishank@1234"
+            };
+            client.EnableSsl = true;
+            await client.SendMailAsync(mail);
+            return Ok(200);
+        }
+
+        /////////////////////
 
         // POST: api/Users
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

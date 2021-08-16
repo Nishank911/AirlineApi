@@ -22,7 +22,6 @@ namespace AirlineManagementAPI.Models
         public string Dob { get; set; }
         public decimal PhoneNo { get; set; }
 
-        public virtual Card Card { get; set; }
         public virtual ICollection<TicketDetails> TicketDetails { get; set; }
     }
 }

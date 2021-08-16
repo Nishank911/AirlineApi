@@ -115,8 +115,22 @@ namespace AirlineManagementAPI.Controllers
             return ticketDetails;
         }
 
+        //Seats Avilable
+        [HttpGet]
+        [Route("seatsavl/{id}/{deptDate}")]
+        public async Task<ActionResult<int>> GetTicketDetails(string id, string deptDate)
+        {
+            //var passenger = await _context.Passenger.FindAsync(id);
+            var seatsE = await _context.TicketDetails.Where(e => e.FlightNo == id && e.FDeptDt == deptDate).SumAsync(e => e.SeatsBookedE);
+            var seatsB= await _context.TicketDetails.Where(e => e.FlightNo == id && e.FDeptDt == deptDate).SumAsync(e => e.SeatsBookedB);
 
-    
+            return seatsE;
+
+            //var seatsavl = 30 - (seats);
+
+            //return seatsavl;
+        }
+
 
         private bool TicketDetailsExists(string id)
         {
