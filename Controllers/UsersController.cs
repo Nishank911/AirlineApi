@@ -74,20 +74,20 @@ namespace AirlineManagementAPI.Controllers
             return NoContent();
         }
         /////////Email////////
-        [HttpPost("{To}/{Body}")]
-        public async Task<IActionResult> SendMail(string To, string Body)
+        [HttpPost("{To}/{Body}/{subject}")]
+        public async Task<IActionResult> SendMail(string To, string Body,string subject)
         {
-            string from = "viserion1921@gmail.com";
+            string from = "starklines2@gmail.com";
             MailMessage mail = new MailMessage(from, To);
-            mail.Subject = "Password Reset OTP";
+            mail.Subject = subject;
             mail.Body = Body;
             //Attachment attachment = new Attachment(@"");
             //mail.Attachments.Add(attachment);
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
             client.Credentials = new System.Net.NetworkCredential()
             {
-                UserName = "viserion1921@gmail.com",
-                Password = "Nishank@1234"
+                UserName = "starklines2@gmail.com",
+                Password = "Stark@123"
             };
             client.EnableSsl = true;
             await client.SendMailAsync(mail);

@@ -21,7 +21,6 @@ namespace AirlineManagementAPI.Models
 
         public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Flight> Flight { get; set; }
-        public virtual DbSet<FlightDeptDate> FlightDeptDate { get; set; }
         public virtual DbSet<Passenger> Passenger { get; set; }
         public virtual DbSet<TicketDetails> TicketDetails { get; set; }
         public virtual DbSet<Users> Users { get; set; }
@@ -98,23 +97,23 @@ namespace AirlineManagementAPI.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<FlightDeptDate>(entity =>
-            {
-                entity.HasKey(e => new { e.FlightNo, e.DeptDate })
-                    .HasName("PK__FlightDe__63C68366817DA4FA");
+            //modelBuilder.Entity<FlightDeptDate>(entity =>
+            //{
+            //    entity.HasKey(e => new { e.FlightNo, e.DeptDate })
+            //        .HasName("PK__FlightDe__63C68366817DA4FA");
 
-                entity.Property(e => e.FlightNo)
-                    .HasMaxLength(15)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.FlightNo)
+            //        .HasMaxLength(15)
+            //        .IsUnicode(false);
 
-                entity.Property(e => e.DeptDate)
-                    .HasMaxLength(12)
-                    .IsUnicode(false);
+            //    entity.Property(e => e.DeptDate)
+            //        .HasMaxLength(12)
+            //        .IsUnicode(false);
 
-                entity.Property(e => e.SeatsB).HasColumnName("seatsB");
+            //    entity.Property(e => e.SeatsB).HasColumnName("seatsB");
 
-                entity.Property(e => e.SeatsE).HasColumnName("seatsE");
-            });
+            //    entity.Property(e => e.SeatsE).HasColumnName("seatsE");
+            //});
 
             modelBuilder.Entity<Passenger>(entity =>
             {
